@@ -4,10 +4,11 @@ package org.commerceproject.ecommerceprodcutservice.Controller;
 import org.springframework.web.bind.annotation.*;
 
 
-@RestController("/products")
+@RestController()
+@RequestMapping("/products")
 
 public class ProductController {
-        @GetMapping(" ")
+        @GetMapping()
     public void getAllProducts() {
 
     }
