@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController("/products")
 
 public class ProductController {
-        @GetMapping()
+        @GetMapping(" ")
     public void getAllProducts() {
 
     }
