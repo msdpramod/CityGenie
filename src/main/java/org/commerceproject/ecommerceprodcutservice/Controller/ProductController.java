@@ -1,9 +1,7 @@
 package org.commerceproject.ecommerceprodcutservice.Controller;
 
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController("/products")
@@ -15,19 +13,19 @@ public class ProductController {
     }
 
     @GetMapping("{id}")
-    public void getProductById() {
+    public void getProductById(@PathVariable("id") Long id){
 
     }
-
+    @PostMapping()
     public void createProduct() {
 
     }
-
-    public void updateProductById() {
+    @PutMapping("{id}")
+    public void updateProductById(@PathVariable("id") Long id) {
 
     }
     @DeleteMapping("{id}")
-    public void deleteProductById() {
+    public void deleteProductById(@PathVariable("id") Long id) {
 
     }
 }
