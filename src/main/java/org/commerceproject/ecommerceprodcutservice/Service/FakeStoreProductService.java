@@ -3,9 +3,17 @@ package org.commerceproject.ecommerceprodcutservice.Service;
 import org.commerceproject.ecommerceprodcutservice.DTOs.FakeStoreProductDTO;
 import org.commerceproject.ecommerceprodcutservice.DTOs.GenericProductDTO;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RequestCallback;
+import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
+
+import static java.util.Objects.nonNull;
 
 @Service("fakeStoreProductService")
 public class FakeStoreProductService implements ProductService {
@@ -13,6 +21,8 @@ public class FakeStoreProductService implements ProductService {
     private final String ProductRequestURL="https://fakestoreapi.com/products/{id}";
     private final String creatRequestURL="https://fakestoreapi.com/products";
     private  final String updateRequestURL="https://fakestoreapi.com/products/{id}";
+    private final String getAllProductURl="https://fakestoreapi.com/products";
+    private final String deleteRequestURL="https://fakestoreapi.com/products/{id}";
 
     public FakeStoreProductService(RestTemplateBuilder restTemplateBuilder) {
         this.restTemplateBuilder = restTemplateBuilder;
@@ -46,8 +56,40 @@ public class FakeStoreProductService implements ProductService {
     @Override
     public GenericProductDTO updateProductById(Long id, GenericProductDTO product) {
         RestTemplate restTemplate = restTemplateBuilder.build();
-        ResponseEntity<GenericProductDTO> responseEntity=
-                restTemplate.postForEntity(updateRequestURL, product, GenericProductDTO.class,id);
-        return  responseEntity.getBody();
+       // HttpEntity<GenericProductDTO> request= restTemplate.patchForObject(updateRequestURL, product, HttpEntity.class);
+        HttpEntity<GenericProductDTO> request =
+                new HttpEntity<>(product);
+
+
+        ResponseEntity<GenericProductDTO> productCreateResponse =
+                restTemplate
+                        .exchange(updateRequestURL,
+                                HttpMethod.PUT,
+                                request,
+                                GenericProductDTO.class,id);
+        return request.getBody();
+    }
+
+    @Override
+    public List<GenericProductDTO> getAllProducts() {
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        List<GenericProductDTO> products
+                = restTemplate.getForObject(getAllProductURl, List.class);
+        return products;
+    }
+
+    @Override
+    public GenericProductDTO deleteProductById(Long id){
+        RestTemplate restTemplate = restTemplateBuilder.build();
+
+        ResponseEntity<GenericProductDTO> response = restTemplate.exchange(
+                deleteRequestURL,
+                HttpMethod.DELETE,
+                null,
+                GenericProductDTO.class,
+                id);
+
+        return response.getBody();
+
     }
 }
