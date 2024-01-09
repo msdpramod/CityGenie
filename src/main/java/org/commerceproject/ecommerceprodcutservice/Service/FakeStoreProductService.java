@@ -1,5 +1,6 @@
 package org.commerceproject.ecommerceprodcutservice.Service;
 
+import org.commerceproject.ecommerceprodcutservice.DTOs.GenericProductDTO;
 import org.commerceproject.ecommerceprodcutservice.Models.Product;
 import org.springframework.stereotype.Service;
 
@@ -7,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class FakeStoreProductService implements ProductService {
 
     @Override
-    public Product getProductById(Long id) {
+    public GenericProductDTO getProductById(Long id) {
         return null;
     }
 }

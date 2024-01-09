@@ -2,6 +2,7 @@ package org.commerceproject.ecommerceprodcutservice.Controller;
 
 
 import org.commerceproject.ecommerceprodcutservice.DTOs.FakeStoreProductDTO;
+import org.commerceproject.ecommerceprodcutservice.DTOs.GenericProductDTO;
 import org.commerceproject.ecommerceprodcutservice.Models.Product;
 import org.commerceproject.ecommerceprodcutservice.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,17 +33,19 @@ public class ProductController {
     }
 
     @GetMapping("{id}")
-    public Product getProductById(@PathVariable("id") Long id){
+    public GenericProductDTO getProductById(@PathVariable("id") Long id){
         RestTemplate restTemplate = restTemplateBuilder.build();
-        ResponseEntity<FakeStoreProductDTO> responseEntity=restTemplate.getForEntity(ProductRequestURL, FakeStoreProductDTO.class,id);
+        ResponseEntity<FakeStoreProductDTO> responseEntity=
+                restTemplate.getForEntity(ProductRequestURL, FakeStoreProductDTO.class,id);
         FakeStoreProductDTO fakeStoreProductDTO=responseEntity.getBody();
-        Product product=new Product();
-        product.setId(fakeStoreProductDTO.getId());
+       // Product product=new Product();
+        GenericProductDTO product= new GenericProductDTO();
+
         product.setTitle(fakeStoreProductDTO.getTitle());
         product.setDescription(fakeStoreProductDTO.getDescription());
         product.setImage(fakeStoreProductDTO.getImage());
         product.setPrice(fakeStoreProductDTO.getPrice());
-        product.setCateogry(fakeStoreProductDTO.getCateogry());
+        product.setCategory(fakeStoreProductDTO.getCateogry());
 
         return product;
     }
