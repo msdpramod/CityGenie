@@ -1,10 +1,14 @@
 package org.commerceproject.ecommerceprodcutservice.Controller;
 
 
+import org.commerceproject.ecommerceprodcutservice.DTOs.ExceptionDTO;
 import org.commerceproject.ecommerceprodcutservice.DTOs.GenericProductDTO;
+import org.commerceproject.ecommerceprodcutservice.Exceptions.NotFoundException;
 import org.commerceproject.ecommerceprodcutservice.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,10 +18,10 @@ import java.util.List;
 @RequestMapping("/products")
 
 public class ProductController {
-    private  final ProductService productService;
+    private final ProductService productService;
 
     @Autowired
-    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService){
+    public ProductController(@Qualifier("fakeStoreProductService") ProductService productService) {
         this.productService = productService;
     }
 
@@ -27,22 +31,33 @@ public class ProductController {
     }
 
     @GetMapping("{id}")
-    public GenericProductDTO getProductById(@PathVariable("id") Long id){
+    public GenericProductDTO getProductById(@PathVariable("id") Long id) {
         return productService.getProductById(id);
 
     }
+
     @PostMapping()
     public GenericProductDTO createProduct(@RequestBody GenericProductDTO product) {
-       return productService.createProduct(product);
+        return productService.createProduct(product);
 
     }
+
     @PutMapping("{id}")
     public GenericProductDTO updateProductById(@PathVariable("id") Long id, @RequestBody GenericProductDTO product) {
         return productService.updateProductById(id, product);
 
     }
+
     @DeleteMapping("{id}")
-    public GenericProductDTO deleteProductById(@PathVariable("id") Long id ) {
-        return productService.deleteProductById(id);
+    public ResponseEntity<GenericProductDTO> deleteProductById(@PathVariable("id") Long id) {
+        ResponseEntity<GenericProductDTO> response = new ResponseEntity<>
+                (productService.deleteProductById(id), HttpStatus.NOT_FOUND);
+        return response;
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ExceptionDTO> handleException(NotFoundException e) {
+        return new ResponseEntity<>(
+                new ExceptionDTO(  HttpStatus.NOT_FOUND, e.getMessage()) , HttpStatus.NOT_FOUND);
     }
 }

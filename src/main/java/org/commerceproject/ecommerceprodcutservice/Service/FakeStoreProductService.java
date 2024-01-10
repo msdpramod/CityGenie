@@ -2,13 +2,12 @@ package org.commerceproject.ecommerceprodcutservice.Service;
 
 import org.commerceproject.ecommerceprodcutservice.DTOs.FakeStoreProductDTO;
 import org.commerceproject.ecommerceprodcutservice.DTOs.GenericProductDTO;
+import org.commerceproject.ecommerceprodcutservice.Exceptions.NotFoundException;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RequestCallback;
-import org.springframework.web.client.ResponseExtractor;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -34,6 +33,9 @@ public class FakeStoreProductService implements ProductService {
         ResponseEntity<FakeStoreProductDTO> responseEntity=
                 restTemplate.getForEntity(ProductRequestURL, FakeStoreProductDTO.class,id);
         FakeStoreProductDTO fakeStoreProductDTO=responseEntity.getBody();
+        if (fakeStoreProductDTO==null){
+            throw new NotFoundException(" product not found with id "+id);
+        }
         // Product product=new Product();
         GenericProductDTO product= new GenericProductDTO();
         product.setId(fakeStoreProductDTO.getId());
@@ -88,6 +90,20 @@ public class FakeStoreProductService implements ProductService {
                 null,
                 GenericProductDTO.class,
                 id);
+//          you can use this code instead of the above code
+//        RequestCallback requestCallback = restTemplate.acceptHeaderRequestCallback(FakeStoreProductDTO.class);
+//        ResponseExtractor<ResponseEntity<FakeStoreProductDTO>> responseExtractor = restTemplate.responseEntityExtractor(FakeStoreProductDTO.class);
+//        ResponseEntity<FakeStoreProductDTO> response =restTemplate.execute(deleteRequestURL, HttpMethod.DELETE, requestCallback, responseExtractor, id);
+//        FakeStoreProductDTO fakeStoreProductDTO=response.getBody();
+//        // Product product=new Product();
+//        GenericProductDTO product= new GenericProductDTO();
+//        product.setId(fakeStoreProductDTO.getId());
+//        product.setTitle(fakeStoreProductDTO.getTitle());
+//        product.setDescription(fakeStoreProductDTO.getDescription());
+//        product.setImage(fakeStoreProductDTO.getImage());
+//        product.setPrice(fakeStoreProductDTO.getPrice());
+//        product.setCategory(fakeStoreProductDTO.getCateogry());
+//        return product;
 
         return response.getBody();
 
