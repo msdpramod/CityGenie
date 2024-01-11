@@ -3,8 +3,7 @@ package org.commerceproject.ecommerceprodcutservice.DTOs;
 import lombok.Getter;
 import lombok.Setter;
 
-
-@Getter @Setter
+@Getter@Setter
 public class GenericProductDTO {
     private Long id;
     private String title;

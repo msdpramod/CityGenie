@@ -1,9 +1,7 @@
 package org.commerceproject.ecommerceprodcutservice.Controller;
 
 
-import org.commerceproject.ecommerceprodcutservice.DTOs.ExceptionDTO;
 import org.commerceproject.ecommerceprodcutservice.DTOs.GenericProductDTO;
-import org.commerceproject.ecommerceprodcutservice.Exceptions.NotFoundException;
 import org.commerceproject.ecommerceprodcutservice.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -55,9 +53,5 @@ public class ProductController {
         return response;
     }
 
-    @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ExceptionDTO> handleException(NotFoundException e) {
-        return new ResponseEntity<>(
-                new ExceptionDTO(  HttpStatus.NOT_FOUND, e.getMessage()) , HttpStatus.NOT_FOUND);
-    }
+
 }

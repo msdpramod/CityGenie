@@ -1,4 +1,4 @@
-package org.commerceproject.ecommerceprodcutservice.DTOs;
+package org.commerceproject.ecommerceprodcutservice.ThirdParty;
 
 import lombok.Getter;
 import lombok.Setter;
