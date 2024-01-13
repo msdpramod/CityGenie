@@ -1,10 +1,7 @@
 package org.commerceproject.ecommerceprodcutservice.Models;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 
-import jakarta.persistence.ManyToOne;
-
-import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,10 +13,13 @@ public class Product extends BaseModel{
     private String description;
     private String image;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST})
+    //@ManyToOne
+    @JoinColumn(name = "cateogry")
     private Cateogry cateogry;
 
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST})
+    //@OneToOne
     private  Price price;
 
 
