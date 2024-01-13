@@ -1,10 +1,6 @@
 package org.commerceproject.ecommerceprodcutservice;
 
 
-import jakarta.transaction.Transactional;
-
-import org.commerceproject.ecommerceprodcutservice.Repository.CateogryRepository;
-import org.commerceproject.ecommerceprodcutservice.Repository.ProductRepository;
 import org.commerceproject.ecommerceprodcutservice.Service.ProductInitalization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

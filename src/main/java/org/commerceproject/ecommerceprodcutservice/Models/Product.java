@@ -22,4 +22,5 @@ public class Product extends BaseModel{
     @OneToOne
     private  Price price;
 
+
 }
