@@ -1,9 +1,9 @@
 package org.commerceproject.ecommerceprodcutservice.Service;
 
 import org.commerceproject.ecommerceprodcutservice.DTOs.GenericProductDTO;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
 
 public interface ProductService {
     GenericProductDTO getProductById(Long id);

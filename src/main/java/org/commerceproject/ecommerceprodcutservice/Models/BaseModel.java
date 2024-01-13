@@ -1,9 +1,21 @@
 package org.commerceproject.ecommerceprodcutservice.Models;
 
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter@Setter
+import jakarta.persistence.*;
+import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import lombok.Getter;
+import java.util.UUID;
+
+
+@MappedSuperclass @Getter
+@Setter
 public class BaseModel {
-    private Long id;
+    @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID id;
+
 }
+
+
