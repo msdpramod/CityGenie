@@ -36,11 +36,12 @@ public class ProductIntImp implements ProductInitalization{
         Cateogry c = cateogryRepository.save(cateogry);
 
         Product product = new Product();
-        product.setCateogry(c);
+        product.setCategory(c);
         product.setDescription("Iphone 13 256GB");
         product.setImage("https://www.google.com/");
         product.setPrice(savePrice);
         product.setTitle("Iphone 13");
         productRepository.save(product);
+        //productRepository.deleteById(UUID.fromString("95672ed6-3127-4248-ae33-97a261c0a6f4"));
     }
 }
