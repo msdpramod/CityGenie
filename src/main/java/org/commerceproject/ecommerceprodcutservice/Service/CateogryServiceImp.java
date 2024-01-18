@@ -31,12 +31,9 @@ public class CateogryServiceImp implements CateogryService {
             return null;
         }
 
-        Cateogry category = categoryOptional.get();
+        Cateogry c = categoryOptional.get();
 
-        List<Product> products = category.getProducts();
-
-
-        return category;
+        return c;
     }
 
     public List<String> getProductTitles(List<String> categoryUUIDs) {

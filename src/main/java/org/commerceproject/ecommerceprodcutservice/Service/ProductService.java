@@ -2,7 +2,6 @@ package org.commerceproject.ecommerceprodcutservice.Service;
 
 import org.commerceproject.ecommerceprodcutservice.DTOs.GenericProductDTO;
 import org.commerceproject.ecommerceprodcutservice.Exceptions.NotFoundException;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
